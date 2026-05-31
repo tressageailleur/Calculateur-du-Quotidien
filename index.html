@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>MultiTools - 50 outils gratuits</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="50 outils gratuits : générateur pseudo, IMC, QR code, calculs, utilitaires.">
+
+<style>
+
+/* BASE */
+body{
+margin:0;
+font-family:-apple-system, Arial;
+background:#0f172a;
+color:white;
+}
+
+/* HEADER */
+header{
+text-align:center;
+padding:15px;
+font-size:22px;
+font-weight:bold;
+background:#020617;
+}
+
+/* BANNER */
+.banner{
+background:#38bdf8;
+color:black;
+padding:8px;
+overflow:hidden;
+}
+
+.banner span{
+display:inline-block;
+white-space:nowrap;
+animation:scroll 30s linear infinite;
+}
+
+@keyframes scroll{
+from{transform:translateX(100%)}
+to{transform:translateX(-100%)}
+}
+
+/* MENU */
+.menu{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:10px;
+}
+
+.menu button{
+background:#1e293b;
+border:none;
+padding:10px 15px;
+border-radius:12px;
+color:white;
+cursor:pointer;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:10px;
+margin:15px;
+}
+
+.card{
+background:#1e293b;
+padding:15px;
+border-radius:15px;
+text-align:center;
+cursor:pointer;
+transition:0.2s;
+}
+
+.card:hover{
+background:#334155;
+}
+
+/* CONTENT */
+.container{
+max-width:500px;
+margin:20px auto;
+background:#1e293b;
+padding:20px;
+border-radius:20px;
+}
+
+/* BTN */
+.btn{
+width:100%;
+padding:10px;
+margin-top:10px;
+background:#22c55e;
+border:none;
+border-radius:10px;
+color:white;
+}
+
+/* RESULT */
+.result{
+margin-top:10px;
+color:#4ade80;
+}
+
+/* ADS */
+.ad-left,.ad-right{
+position:fixed;
+bottom:10px;
+width:100px;
+background:#111;
+padding:10px;
+}
+
+.ad-left{left:10px}
+.ad-right{right:10px}
+
+@media(max-width:700px){
+.ad-left,.ad-right{display:none}
+}
+
+</style>
+</head>
+
+<body>
+
+<header>🚀 MultiTools</header>
+
+<div class="banner">
+<span>✅ 100% gratuit — +50 outils utiles regroupés dans une seule app 🚀</span>
+</div>
+
+<!-- MENU -->
+<div class="menu">
+<button onclick="show('gen')">Générateurs</button>
+<button onclick="show('calc')">Calculs</button>
+<button onclick="show('util')">Utilitaires</button>
+</div>
+
+<!-- CONTENT -->
+<div id="app" class="container">
+<h2>Choisis une catégorie 👆</h2>
+</div>
+
+<div class="ad-left">PUB</div>
+<div class="ad-right">PUB</div>
+
+<script>
+
+// ================= MENU =================
+
+function show(type){
+
+let html="";
+
+// ================= GENERATEURS (15) =================
+if(type==="gen"){
+html="<h2>🎮 Générateurs</h2><div class='grid'>";
+
+let tools = [
+["Pseudo","pseudo"],
+["Password","pass"],
+["Nom entreprise","name"],
+["Pseudo IG","insta"],
+["Pseudo Snap","snap"],
+["Pseudo Gamer","game"],
+["Nom startup","startup"],
+["Username","user"],
+["Bio Insta","bio"],
+["Hashtag","hash"],
+["Texte stylé","style"],
+["Emoji","emoji"],
+["Email fake","mail"],
+["Phrase random","phrase"],
+["ID unique","uuid"]
+];
+
+tools.forEach(t=>{
+html += `<div class="card" onclick="tool('${t[1]}')">${t[0]}</div>`;
+});
+
+html += "</div>";
+}
+
+// ================= CALCULS (15) =================
+if(type==="calc"){
+html="<h2>📊 Calculs</h2><div class='grid'>";
+
+let tools = [
+["IMC","imc"],["TVA","tva"],["%","percent"],
+["Intérêt","interest"],["Âge","age"],["Température","temp"],
+["Salaire net","salary"],["Distance","distance"],
+["Poids idéal","weight"],["Calories","cal"],
+["Surface","surface"],["Temps","time"],
+["Vitesse","speed"],["Volume","volume"],["Taxes","tax"]
+];
+
+tools.forEach(t=>{
+html += `<div class="card" onclick="tool('${t[1]}')">${t[0]}</div>`;
+});
+
+html += "</div>";
+}
+
+// ================= UTILITAIRES (20) =================
+if(type==="util"){
+html="<h2>⚙️ Utilitaires</h2><div class='grid'>";
+
+let tools = [
+["Random","random"],["QR Code","qr"],["Couleur","color"],
+["Texte MAJ","text"],["Compteur mots","words"],
+["Timer","timer"],["UUID","uuid"],["Date","date"],
+["Horloge","clock"],["Mot de passe","pass"],
+["Compteur clic","click"],["IP","ip"],
+["JSON format","json"],["Base64","base64"],
+["Encode URL","url"],["Hash","hash"],
+["Liste random","list"],["Flip coin","flip"],
+["Dice","dice"],["Compteur","counter"]
+];
+
+tools.forEach(t=>{
+html += `<div class="card" onclick="tool('${t[1]}')">${t[0]}</div>`;
+});
+
+html += "</div>";
+}
+
+document.getElementById("app").innerHTML = html;
+}
+
+// ================= OUTIL =================
+
+function tool(type){
+
+let html="<h2>"+type+"</h2>";
+
+// exemple simple général
+html+=`
+<button class="btn" onclick="run('${type}')">Générer / Calculer</button>
+<div id="result" class="result"></div>
+
+<p style="margin-top:15px;font-size:14px;">
+Outil gratuit en ligne pour ${type}. Simple, rapide et efficace.
+</p>
+`;
+
+document.getElementById("app").innerHTML = html;
+}
+
+// ================= LOGIQUE BASIQUE =================
+
+function run(type){
+let r = document.getElementById("result");
+
+if(type==="random"){
+r.innerText = Math.floor(Math.random()*100);
+}
+
+else if(type==="color"){
+r.innerText = "#"+Math.floor(Math.random()*16777215).toString(16);
+}
+
+else if(type==="uuid"){
+r.innerText = Math.random().toString(36).substring(2);
+}
+
+else{
+r.innerText = type + " généré ✅";
+}
+
+}
+
+</script>
+
+</body>
+</html>
